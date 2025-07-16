@@ -13,7 +13,7 @@ import java.util.List;
  * @date 2025-06-29 19:43:19
  */
 public class Lox {
-
+    private static final Interpreter interpreter = new Interpreter();
     static boolean hadError = false;
 
     public static void main(String[] args) throws IOException {
@@ -51,17 +51,19 @@ public class Lox {
     }
 
     private static void run(String source) {
+        // get tokens
         Scanner scanner = new Scanner(source);
         List<Token> tokens = scanner.scanTokens();
 
-        // For now, just print the tokens.
+        // get expression
         Parser parser = new Parser(tokens);
         Expr expression = parser.parse();
 
         // Stop if there was a syntax error.
         if (hadError) return;
 
-        System.out.println(new AstPrinter().print(expression));
+        // evaluate expression
+        interpreter.interpret(expression);
     }
 
     static void error(int line, String message) {
@@ -80,5 +82,11 @@ public class Lox {
         } else {
             report(token.line, " at '" + token.lexeme + "'", message);
         }
+    }
+
+    static void runtimeError(RuntimeError error) {
+        System.err.println(error.getMessage() +
+                "\n[line " + error.getToken().line + "]");
+        hadError = true;
     }
 }

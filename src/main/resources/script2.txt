@@ -1,0 +1,9 @@
+fun add(a, b, c) {
+  return a + b + c;
+}
+
+fun p(a) {
+    print a;
+}
+
+p(add(1, 2, 3));

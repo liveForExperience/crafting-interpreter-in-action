@@ -1,0 +1,13 @@
+var e = 1;
+
+fun p() {
+    fun say() {
+        print e;
+    }
+
+    say();
+    var e = 2;
+    say();
+}
+
+p();

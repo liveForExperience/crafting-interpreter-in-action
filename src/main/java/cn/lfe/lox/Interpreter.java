@@ -100,12 +100,11 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Object> {
             arguments.add(evaluate(argument));
         }
 
-        if (!(callee instanceof LoxCallable)) {
+        if (!(callee instanceof LoxCallable function)) {
             throw new RuntimeError(expr.paren,
                     "Can only call functions and classes.");
         }
 
-        LoxCallable function = (LoxCallable) callee;
         if (arguments.size() != function.arity()) {
             throw new RuntimeError(expr.paren, "Expected " +
                     function.arity() + " arguments but got " +

@@ -1,8 +1,8 @@
 package cn.lfe.lox;
 
 import java.util.List;
-abstract class Expr {
-  interface Visitor<R> {
+public abstract class Expr {
+  public interface Visitor<R> {
     R visitAssignExpr(Assign expr);
     R visitBinaryExpr(Binary expr);
     R visitCallExpr(Call expr);
@@ -13,8 +13,8 @@ abstract class Expr {
     R visitVariableExpr(Variable expr);
   }
 
-  static class Assign extends Expr {
-    Assign(Token name, Expr value) {
+  public static class Assign extends Expr {
+    public Assign(Token name, Expr value) {
       this.name = name;
       this.value = value;
     }
@@ -24,12 +24,12 @@ abstract class Expr {
       return visitor.visitAssignExpr(this);
     }
 
-    final Token name;
-    final Expr value;
+    public final Token name;
+    public final Expr value;
   }
 
-  static class Binary extends Expr {
-    Binary(Expr left, Token operator, Expr right) {
+  public static class Binary extends Expr {
+    public Binary(Expr left, Token operator, Expr right) {
       this.left = left;
       this.operator = operator;
       this.right = right;
@@ -40,13 +40,13 @@ abstract class Expr {
       return visitor.visitBinaryExpr(this);
     }
 
-    final Expr left;
-    final Token operator;
-    final Expr right;
+    public final Expr left;
+    public final Token operator;
+    public final Expr right;
   }
 
-  static class Call extends Expr {
-    Call(Expr callee, Token paren, List<Expr> arguments) {
+  public static class Call extends Expr {
+    public Call(Expr callee, Token paren, List<Expr> arguments) {
       this.callee = callee;
       this.paren = paren;
       this.arguments = arguments;
@@ -57,13 +57,13 @@ abstract class Expr {
       return visitor.visitCallExpr(this);
     }
 
-    final Expr callee;
-    final Token paren;
-    final List<Expr> arguments;
+    public final Expr callee;
+    public final Token paren;
+    public final List<Expr> arguments;
   }
 
-  static class Grouping extends Expr {
-    Grouping(Expr expression) {
+  public static class Grouping extends Expr {
+    public Grouping(Expr expression) {
       this.expression = expression;
     }
 
@@ -72,11 +72,11 @@ abstract class Expr {
       return visitor.visitGroupingExpr(this);
     }
 
-    final Expr expression;
+    public final Expr expression;
   }
 
-  static class Literal extends Expr {
-    Literal(Object value) {
+  public static class Literal extends Expr {
+    public Literal(Object value) {
       this.value = value;
     }
 
@@ -85,11 +85,11 @@ abstract class Expr {
       return visitor.visitLiteralExpr(this);
     }
 
-    final Object value;
+    public final Object value;
   }
 
-  static class Logical extends Expr {
-    Logical(Expr left, Token operator, Expr right) {
+  public static class Logical extends Expr {
+    public Logical(Expr left, Token operator, Expr right) {
       this.left = left;
       this.operator = operator;
       this.right = right;
@@ -100,13 +100,13 @@ abstract class Expr {
       return visitor.visitLogicalExpr(this);
     }
 
-    final Expr left;
-    final Token operator;
-    final Expr right;
+    public final Expr left;
+    public final Token operator;
+    public final Expr right;
   }
 
-  static class Unary extends Expr {
-    Unary(Token operator, Expr right) {
+  public static class Unary extends Expr {
+    public Unary(Token operator, Expr right) {
       this.operator = operator;
       this.right = right;
     }
@@ -116,12 +116,12 @@ abstract class Expr {
       return visitor.visitUnaryExpr(this);
     }
 
-    final Token operator;
-    final Expr right;
+    public final Token operator;
+    public final Expr right;
   }
 
-  static class Variable extends Expr {
-    Variable(Token name) {
+  public static class Variable extends Expr {
+    public Variable(Token name) {
       this.name = name;
     }
 
@@ -130,7 +130,7 @@ abstract class Expr {
       return visitor.visitVariableExpr(this);
     }
 
-    final Token name;
+    public final Token name;
   }
 
   abstract <R> R accept(Visitor<R> visitor);

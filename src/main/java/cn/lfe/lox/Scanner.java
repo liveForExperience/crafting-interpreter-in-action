@@ -53,10 +53,6 @@ public class Scanner {
         return tokens;
     }
 
-    private boolean isAtEnd() {
-        return current >= source.length();
-    }
-
     private void scanToken() {
         char c = advance();
         switch (c) {
@@ -111,6 +107,10 @@ public class Scanner {
                 }
                 break;
         }
+    }
+
+    private boolean isAtEnd() {
+        return current >= source.length();
     }
 
     private void identifier() {

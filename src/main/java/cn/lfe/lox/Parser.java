@@ -45,8 +45,7 @@ public class Parser {
                     error(peek(), "Can't have more than 255 parameters.");
                 }
 
-                parameters.add(
-                        consume(IDENTIFIER, "Expect parameter name."));
+                parameters.add(consume(IDENTIFIER, "Expect parameter name."));
             } while (match(COMMA));
         }
         consume(RIGHT_PAREN, "Expect ')' after parameters.");
@@ -200,7 +199,6 @@ public class Parser {
         return expr;
     }
 
-
     private Expr or() {
         Expr expr = and();
 
@@ -301,8 +299,7 @@ public class Parser {
             } while (match(COMMA));
         }
 
-        Token paren = consume(RIGHT_PAREN,
-                "Expect ')' after arguments.");
+        Token paren = consume(RIGHT_PAREN, "Expect ')' after arguments.");
 
         return new Expr.Call(callee, paren, arguments);
     }

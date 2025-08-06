@@ -162,15 +162,6 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Object> {
         return lookUpVariable(expr.name, expr);
     }
 
-    private Object lookUpVariable(Token name, Expr expr) {
-        Integer distance = locals.get(expr);
-        if (distance != null) {
-            return environment.getAt(distance, name.lexeme);
-        } else {
-            return globals.get(name);
-        }
-    }
-
     @Override
     public Void visitBlockStmt(Stmt.Block stmt) {
         executeBlock(stmt.statements, new Environment(environment));
@@ -298,8 +289,7 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Object> {
         return expr.accept(this);
     }
 
-    void executeBlock(List<Stmt> statements,
-                      Environment environment) {
+    void executeBlock(List<Stmt> statements, Environment environment) {
         Environment previous = this.environment;
         try {
             this.environment = environment;
@@ -314,5 +304,14 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Object> {
 
     void resolve(Expr expr, int depth) {
         locals.put(expr, depth);
+    }
+
+    private Object lookUpVariable(Token name, Expr expr) {
+        Integer distance = locals.get(expr);
+        if (distance != null) {
+            return environment.getAt(distance, name.lexeme);
+        } else {
+            return globals.get(name);
+        }
     }
 }
